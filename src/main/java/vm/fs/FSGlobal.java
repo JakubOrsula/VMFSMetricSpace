@@ -16,9 +16,7 @@ public class FSGlobal {
     private static String initRoot() {
 //        return "h:\\TMP\\Similarity_search\\";
         String[] paths = new String[]{
-            "h:\\Similarity_search\\",
-            "Similarity_search/",
-            "c:\\Data\\Similarity_search\\"
+            "/tmp/"
         };
         for (String path : paths) {
             File f = new File(path);
@@ -71,12 +69,7 @@ public class FSGlobal {
         file = new File(checkUnixPath(file.getAbsolutePath()));
         file.getParentFile().mkdirs();
         if (file.exists() && willBeDeleted && ASK_FOR_EXISTENCE) {
-            LOG.log(Level.WARNING, "Asking for a question, waiting for the reply: {0}", file.getAbsolutePath());
-            String question = "File " + file.getName() + " at " + file.getAbsolutePath() + " already exists. Do you want to delete its content? Answer no causes immediate stop.";
-            int add = JOptionPane.showOptionDialog(null, question, "New file?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, JOptionPane.NO_OPTION);
-            if (add == 1) {
-                System.exit(1);
-            }
+            LOG.log(Level.WARNING, "Former file deleted: {0}", file.getAbsolutePath());
             file.delete();
             LOG.log(Level.INFO, "File returned ({0})", file.getAbsolutePath());
             return file;
